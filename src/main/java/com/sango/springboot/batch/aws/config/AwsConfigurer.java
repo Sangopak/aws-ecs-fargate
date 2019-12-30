@@ -1,5 +1,6 @@
 package com.sango.springboot.batch.aws.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,8 +14,10 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 @Configuration
 public class AwsConfigurer {
 
-	private String accessKey = "AKIA3ND4EXRPNMWI5UIL";
-	private String secretKey = "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";
+	@Value("${aws.access-key}")
+	private String accessKey;
+	@Value("${aws.secret-key}")
+	private String secretKey;
 
 	@Bean
 	public AmazonS3 createS3Client() {
