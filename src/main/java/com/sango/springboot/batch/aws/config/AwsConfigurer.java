@@ -14,9 +14,9 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 @Configuration
 public class AwsConfigurer {
 
-	@Value("${aws.access-key}")
+	@Value("${awsAccessKey}")
 	private String accessKey;
-	@Value("${aws.secret-key}")
+	@Value("${awsSecretKey}")
 	private String secretKey;
 
 	@Bean

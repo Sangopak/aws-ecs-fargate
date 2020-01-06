@@ -11,7 +11,7 @@ public class Scheduler {
     @Autowired
     private IDummyJob dummyJob;
 
-    @Scheduled(initialDelay = 1000, fixedRate = 10000)
+    @Scheduled(initialDelay = 1000, fixedDelay = 300000)
     public void run(){
         dummyJob.start();
     }

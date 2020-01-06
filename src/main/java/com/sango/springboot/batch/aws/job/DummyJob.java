@@ -44,6 +44,12 @@ public class DummyJob implements IDummyJob {
 				ObjectListing objectsFromS3Bucket = s3Service.getObjectsFromS3Bucket(bucketName);
 
 				if (objectsFromS3Bucket.getObjectSummaries().isEmpty()) {
+					String keyName = fileName;
+					File file = Paths.get(getClass().getClassLoader().getResource(fileName).toURI()).toFile();
+					log.info("Bucket is empty uploading file is S3 with file name: {} and key name: {} ", fileName, keyName);
+					s3Service.putObjectToS3Bucket(bucketName, keyName, file);
+					log.info("File uploaded in S3");
+				} else {
 					String keyName = System.currentTimeMillis() + "." + fileName;
 					File file = Paths.get(getClass().getClassLoader().getResource(fileName).toURI()).toFile();
 					log.info("Trying to upload file is S3 with file name: {} and key name: {} ", fileName, keyName);
