@@ -32,9 +32,13 @@ public class S3Service {
 		ObjectListing listObjects = amazonS3.listObjects(bucketName);
 		return listObjects;
 	}
-
+	
 	public void putObjectToS3Bucket(String bucketName, String keyName, File file) {
 		amazonS3.putObject(new PutObjectRequest(bucketName, keyName, file));
+	}
+	
+	public void putObjectToS3Bucket(String bucketName, String keyName, String content) {
+		amazonS3.putObject(bucketName, keyName, content);
 	}
 
 	public S3Object getFileFromS3Bucket(String bucketName, String keyName) {

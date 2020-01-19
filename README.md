@@ -20,6 +20,7 @@ Application will upload file in S3 and should be able to run it from ECS using F
 ### Running the application in local
 
 ```
-	java -jar ecs-fargate-1.0-SNAPSHOT.jar
+	java -DawsAccessKey=<accessKey> -DawsSecretKey=<secretKey> -jar target/ecs-fargate-1.0-SNAPSHOT.jar
+
 ```
 #		

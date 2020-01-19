@@ -1,9 +1,5 @@
 package com.sango.springboot.batch.aws.job;
 
-import lombok.extern.slf4j.Slf4j;
-
-import java.io.File;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +10,8 @@ import org.springframework.stereotype.Component;
 import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.sango.springboot.batch.aws.service.S3Service;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
@@ -42,18 +40,20 @@ public class DummyJob implements IDummyJob {
 					.filter(bucket -> bucket.getName().equalsIgnoreCase(bucketName)).findFirst();
 			if (optionalBucket.isPresent()) {
 				ObjectListing objectsFromS3Bucket = s3Service.getObjectsFromS3Bucket(bucketName);
-
+				
+				//InputStream in = getClass().getClassLoader().getResourceAsStream(fileName);
+				//String content = StreamUtils.copyToString(in, Charset.defaultCharset());
+				//File file = new ClassPathResource(fileName).getFile();
+				String content = "Some text data to test S3 upload";
 				if (objectsFromS3Bucket.getObjectSummaries().isEmpty()) {
-					String keyName = fileName;
-					File file = Paths.get(getClass().getClassLoader().getResource(fileName).toURI()).toFile();
+					String keyName = fileName;					
 					log.info("Bucket is empty uploading file is S3 with file name: {} and key name: {} ", fileName, keyName);
-					s3Service.putObjectToS3Bucket(bucketName, keyName, file);
+					s3Service.putObjectToS3Bucket(bucketName, keyName, content);
 					log.info("File uploaded in S3");
 				} else {
 					String keyName = System.currentTimeMillis() + "." + fileName;
-					File file = Paths.get(getClass().getClassLoader().getResource(fileName).toURI()).toFile();
 					log.info("Trying to upload file is S3 with file name: {} and key name: {} ", fileName, keyName);
-					s3Service.putObjectToS3Bucket(bucketName, keyName, file);
+					s3Service.putObjectToS3Bucket(bucketName, keyName, content);
 					log.info("File uploaded in S3");
 				}
 
