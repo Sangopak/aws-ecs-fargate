@@ -8,6 +8,7 @@ import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 
@@ -23,7 +24,8 @@ public class AwsConfigurer {
 	public AmazonS3 createS3Client() {
 		AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
 		AWSCredentialsProvider credentialsProvider = new AWSStaticCredentialsProvider(credentials);
-		return AmazonS3ClientBuilder.standard().withCredentials(credentialsProvider).build();
+		return AmazonS3ClientBuilder.standard().withCredentials(credentialsProvider).withRegion(Regions.US_EAST_1)
+				.build();
 	}
 
 }
